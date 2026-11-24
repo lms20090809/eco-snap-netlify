@@ -1,0 +1,251 @@
+<!doctype html>
+<!--
+THESIS: Eco Snap puts one photo at the center of the recycling task instead of sorting the experience into packaging-type choices.
+OWN-WORLD: Fresh white work surfaces, a pale green field, deep evergreen ink, vivid leaf-green actions, and line-drawn sorting marks.
+STORY: People upload a photo or choose a mixed-scene example, then get transparent guidance; only an explicitly configured server proxy may analyze an upload.
+FIRST VIEWPORT: A compact brand bar and introduction lead into three work zones: pantry at left, one photo-first scan-and-answer flow in the center, and practical sorting guidance at right.
+FORM: Brief-pinned operations workspace with a photo picker and unlabeled-by-material example scenes. The scan-and-answer flow stays central across responsive layouts.
+-->
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f9f4">
+    <meta name="description" content="Organiza tu despensa y descubre cómo aprovechar mejor los envases con Eco Snap.">
+    <title>Eco Snap — Your Pantry</title>
+    <link rel="icon" type="image/svg+xml" href="./eco-snap.svg">
+    <link rel="stylesheet" href="./styles.css">
+    <script type="module" src="./app.js"></script>
+  </head>
+  <body>
+    <svg class="icon-library" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="icon-recycle-bin" viewBox="0 0 64 64">
+        <path d="M15 19h34l-3 36H18l-3-36Z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="3"/>
+        <path d="M11 14h42M25 14V9h14v5M25 26l-3 22m17-22 3 22" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+        <path d="M30 33c1-3 4-5 7-5m0 0-3-1m3 1-1 3m4 2c2 2 2 5 1 7m0 0 2-2m-2 2-2-2m-2 4c-3 1-6 0-8-2m0 0v3m0-3 3 .5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3"/>
+        <path d="m31 6 3-4 3 4m-3-4 2 3M43 8l5 1-1 5m1-5-3 1M21 7l-4 3 2 5m-2-5 3 1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4"/>
+      </symbol>
+      <symbol id="icon-leaf" viewBox="0 0 24 24">
+        <path d="M20 4c-9 0-15 3-15 10a6 6 0 0 0 6 6c7 0 10-7 9-16Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/>
+        <path d="M4 21c3-5 7-8 12-11" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8"/>
+      </symbol>
+      <symbol id="icon-plus" viewBox="0 0 24 24">
+        <path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"/>
+      </symbol>
+      <symbol id="icon-camera" viewBox="0 0 24 24">
+        <path d="M4 7h3l1.5-2h7L17 7h3v12H4V7Z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.7"/>
+        <circle cx="12" cy="13" r="3.5" fill="none" stroke="currentColor" stroke-width="1.7"/>
+      </symbol>
+      <symbol id="icon-upload" viewBox="0 0 24 24">
+        <path d="M12 15V4m-4 4 4-4 4 4M5 14v5h14v-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/>
+      </symbol>
+      <symbol id="icon-trash" viewBox="0 0 24 24">
+        <path d="M4 7h16m-10 4v7m4-7v7M6 7l1 14h10l1-14M9 7V4h6v3" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/>
+      </symbol>
+      <symbol id="icon-arrow" viewBox="0 0 24 24">
+        <path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/>
+      </symbol>
+      <symbol id="icon-check" viewBox="0 0 24 24">
+        <path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      </symbol>
+      <symbol id="icon-spark" viewBox="0 0 24 24">
+        <path d="m12 2 1.5 7 6.5 3-6.5 3-1.5 7-1.5-7L4 12l6.5-3L12 2Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      </symbol>
+      <symbol id="icon-plastic-bottle" viewBox="0 0 32 32">
+        <path d="M13 3h6v4l2 2v3h3v16H8V12h3V9l2-2V3Z" fill="#c6e8df" stroke="currentColor" stroke-linejoin="round" stroke-width="1.6"/>
+        <path d="M11 15h10v7H11zM13 5h6" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.4"/>
+      </symbol>
+      <symbol id="icon-cardboard-box" viewBox="0 0 32 32">
+        <path d="m5 10 11-6 11 6v14l-11 5-11-5V10Z" fill="#f3e5c7" stroke="currentColor" stroke-linejoin="round" stroke-width="1.6"/>
+        <path d="m5 10 11 6 11-6M16 16v13M11 7l11 6m-11 5v5h5" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.4"/>
+      </symbol>
+      <symbol id="icon-glass-jar" viewBox="0 0 32 32">
+        <path d="M11 5h10v4l3 3v15H8V12l3-3V5Z" fill="#dcebee" stroke="currentColor" stroke-linejoin="round" stroke-width="1.6"/>
+        <path d="M11 7h10M9 15h14M11 19h10" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.4"/>
+      </symbol>
+    </svg>
+
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="./" aria-label="Eco Snap — inicio">
+          <span class="brand-mark"><svg aria-hidden="true"><use href="#icon-recycle-bin"></use></svg></span>
+          <span class="brand-copy"><strong>Eco Snap</strong><span>Your Pantry</span></span>
+        </a>
+        <p class="local-status"><span aria-hidden="true"></span> Tu espacio, en este dispositivo</p>
+      </header>
+
+      <main>
+        <section class="intro" aria-labelledby="page-title">
+          <div>
+            <h1 id="page-title">Lo que tienes puede hacer más.</h1>
+            <p class="intro-description">Lleva el control de tu despensa y encuentra una segunda vida para cada envase.</p>
+          </div>
+          <div class="intro-note">
+            <svg aria-hidden="true"><use href="#icon-leaf"></use></svg>
+            <span>Pequeños hábitos.<br><strong>Un cambio que se nota.</strong></span>
+          </div>
+        </section>
+
+        <div class="storage-notice" id="storageNotice" role="status" hidden></div>
+
+        <div class="workspace-grid">
+          <section class="panel pantry-panel" aria-labelledby="pantry-heading">
+            <div class="panel-heading pantry-heading">
+              <div>
+                <h2 id="pantry-heading">Your Pantry</h2>
+              </div>
+              <span class="item-count" id="itemCount" aria-label="Artículos en la despensa">0</span>
+            </div>
+            <p class="panel-description">Usa primero lo que ya tienes.</p>
+
+            <ul class="pantry-list" id="pantryList" aria-label="Lista de alimentos"></ul>
+            <p class="empty-pantry" id="emptyPantry" hidden>Tu lista está vacía. Añade algo para empezar.</p>
+
+            <form class="add-form" id="addPantryForm">
+              <label for="pantryInput">Añadir a la despensa</label>
+              <div class="add-row">
+                <input id="pantryInput" name="food" type="text" maxlength="60" placeholder="p. ej., Manzanas" autocomplete="off" required>
+                <button class="icon-action add-button" type="submit" aria-label="Añadir alimento">
+                  <svg aria-hidden="true"><use href="#icon-plus"></use></svg>
+                </button>
+              </div>
+              <p class="form-error" id="pantryError" role="alert" hidden></p>
+            </form>
+            <p class="storage-footnote" id="pantrySaveState">Tu lista se guarda en este navegador.</p>
+          </section>
+
+          <section class="panel scan-panel" aria-labelledby="scan-heading">
+            <div class="panel-heading scan-heading">
+              <div>
+                <h2 id="scan-heading">Deja que la IA detecte lo que puedes reciclar</h2>
+              </div>
+              <span class="demo-badge"><span aria-hidden="true"></span><span id="aiStatusText">IA no conectada</span></span>
+            </div>
+            <p class="panel-description">Sube una foto o prueba una escena. La demo ofrece ideas, pero no interpreta los píxeles.</p>
+
+            <div class="example-strip" role="group" aria-label="Fotos de ejemplo">
+              <button class="example-option" type="button" data-example="breakfast" aria-label="Usar foto de ejemplo: desayuno" aria-pressed="false">
+                <span class="example-art scene-breakfast" aria-hidden="true">
+                  <svg viewBox="0 0 120 72"><rect width="120" height="72" rx="9" fill="#f1f5e9"/><path d="M8 52h104v8H8z" fill="#d9e3ce"/><path d="m18 18 20-6 10 8v29H18z" fill="#f4e3b2" stroke="#947c4a" stroke-width="2"/><path d="m18 19 20-7v10H18m7 8h14" fill="none" stroke="#947c4a" stroke-width="2"/><path d="M57 28h20l-2 22H59z" fill="#cde3dd" stroke="#4c7770" stroke-width="2"/><path d="M57 31h20m-16-5h12" fill="none" stroke="#4c7770" stroke-width="2"/><path d="M86 46c3-10 11-11 17-6-4 8-10 11-17 6Zm4 1 9-7" fill="#9dc697" stroke="#638c5f" stroke-width="2"/></svg>
+                </span>
+                <span class="example-caption"><strong>Desayuno</strong><small>Al empezar el día</small></span>
+              </button>
+              <button class="example-option" type="button" data-example="kitchen" aria-label="Usar foto de ejemplo: cocina" aria-pressed="false">
+                <span class="example-art scene-kitchen" aria-hidden="true">
+                  <svg viewBox="0 0 120 72"><rect width="120" height="72" rx="9" fill="#eaf3f0"/><path d="M8 51h104v9H8z" fill="#d3e2d9"/><path d="M22 18h13v6l5 5v20H17V29l5-5z" fill="#b9ddd2" stroke="#397462" stroke-width="2"/><path d="M22 18h13m-16 20h23" fill="none" stroke="#397462" stroke-width="2"/><path d="M56 23h18v25H56z" fill="#d5dddf" stroke="#596c70" stroke-width="2"/><path d="M56 28h18m-18 15h18m-18-20c0-3 18-3 18 0" fill="none" stroke="#596c70" stroke-width="2"/><path d="M88 31c0-6 7-10 14-8v25H88z" fill="#f4e4b7" stroke="#a27e40" stroke-width="2"/><path d="M88 34h14m-12 6h10" fill="none" stroke="#a27e40" stroke-width="2"/></svg>
+                </span>
+                <span class="example-caption"><strong>La cocina</strong><small>Un poco de todo</small></span>
+              </button>
+              <button class="example-option" type="button" data-example="leftovers" aria-label="Usar foto de ejemplo: después de comer" aria-pressed="false">
+                <span class="example-art scene-leftovers" aria-hidden="true">
+                  <svg viewBox="0 0 120 72"><rect width="120" height="72" rx="9" fill="#f5eee4"/><path d="M8 52h104v8H8z" fill="#e4d8c8"/><path d="M17 25h27l-3 25H20z" fill="#d5bd98" stroke="#8f7657" stroke-width="2"/><path d="m17 25 6-7h27l-6 7m-17 5h18" fill="none" stroke="#8f7657" stroke-width="2"/><path d="M58 25h17v24H58z" fill="#d3dddd" stroke="#607579" stroke-width="2"/><path d="M58 29h17m-17 15h17" fill="none" stroke="#607579" stroke-width="2"/><path d="M87 31c5-7 15-6 18 1 2 7-4 15-11 14-7-1-11-8-7-15Z" fill="#c6dfbd" stroke="#68875f" stroke-width="2"/><path d="M95 30c0-5 4-7 8-7" fill="none" stroke="#68875f" stroke-width="2"/></svg>
+                </span>
+                <span class="example-caption"><strong>Después de comer</strong><small>Restos y envases</small></span>
+              </button>
+            </div>
+
+            <div class="upload-zone" id="uploadZone">
+              <div class="preview-frame" id="previewFrame" aria-label="Vista previa de la foto">
+                <div class="preview-placeholder" id="previewPlaceholder">
+                  <svg aria-hidden="true"><use href="#icon-camera"></use></svg>
+                  <span>Tu imagen aparecerá aquí</span>
+                </div>
+                <img id="imagePreview" src="./eco-snap.svg" alt="Vista previa de la foto seleccionada" hidden>
+                <span class="preview-label" id="previewLabel" hidden></span>
+              </div>
+              <div class="upload-copy">
+                <strong>Sube o toma una foto</strong>
+                <span>JPG, PNG o WebP · hasta 8 MB</span>
+                <label class="upload-button" for="imageInput">
+                  <svg aria-hidden="true"><use href="#icon-upload"></use></svg>
+                  <span>Elegir foto</span>
+                  <input id="imageInput" type="file" accept="image/*" capture="environment">
+                </label>
+              </div>
+            </div>
+            <p class="form-error upload-error" id="uploadError" role="alert" hidden></p>
+
+            <button class="ask-button" id="askButton" type="button" disabled>
+              <svg aria-hidden="true"><use href="#icon-spark"></use></svg>
+              <span id="askButtonLabel">Ver ideas para esta foto</span>
+              <svg class="ask-arrow" aria-hidden="true"><use href="#icon-arrow"></use></svg>
+            </button>
+            <p class="privacy-hint" id="privacyHint">La IA no está conectada en esta demo. Tus fotos no se analizan ni se envían.</p>
+
+            <section class="ai-message" id="aiMessage" aria-labelledby="message-heading" aria-live="polite" aria-busy="false">
+              <div class="message-heading">
+                <span class="message-mark"><svg aria-hidden="true"><use href="#icon-spark"></use></svg></span>
+                <div><h3 id="message-heading">Message of AI</h3></div>
+                <span class="message-mode">DEMO</span>
+              </div>
+              <p class="message-copy" id="messageCopy">La IA no está conectada. Elige una foto de ejemplo para ver sugerencias de demostración.</p>
+              <div class="material-tags" id="materialTags" hidden></div>
+            </section>
+          </section>
+
+          <aside class="panel eco-panel" aria-labelledby="eco-heading">
+            <div class="panel-heading eco-heading">
+              <div>
+                <h2 id="eco-heading">Eco Hub</h2>
+              </div>
+              <svg class="hub-leaf" aria-hidden="true"><use href="#icon-leaf"></use></svg>
+            </div>
+            <p class="panel-description">Separar bien empieza con un gesto pequeño.</p>
+
+            <section class="daily-waste" aria-labelledby="daily-waste-heading">
+              <div class="daily-waste-heading">
+                <h3 id="daily-waste-heading">Residuos del mundo</h3>
+                <time class="daily-waste-date" id="dailyWasteDate" aria-live="polite"></time>
+              </div>
+              <p class="daily-waste-fact" id="dailyWasteFact" aria-live="polite">
+                <strong id="dailyWasteValue">2,56 mil millones</strong>
+                <span id="dailyWasteDescription">de toneladas de residuos sólidos municipales se generaron en 2022.</span>
+              </p>
+              <a class="daily-waste-source" id="dailyWasteSource" href="https://www.worldbank.org/en/publication/what-a-waste" target="_blank" rel="noopener noreferrer">Fuente: Banco Mundial · What a Waste 3.0</a>
+            </section>
+
+            <section class="guide-section" aria-labelledby="recycle-heading">
+              <h3 id="recycle-heading">Recyclable Materials</h3>
+              <div class="material-guide">
+                <div class="material-row">
+                  <span class="material-swatch swatch-plastic" aria-hidden="true"><svg><use href="#icon-plastic-bottle"></use></svg></span>
+                  <div><strong>Plástico</strong><p>Enjuaga y separa tapa y etiqueta si tu zona lo pide.</p></div>
+                </div>
+                <div class="material-row">
+                  <span class="material-swatch swatch-cardboard" aria-hidden="true"><svg><use href="#icon-cardboard-box"></use></svg></span>
+                  <div><strong>Cartón</strong><p>Vacía, deja secar y aplana para ahorrar espacio.</p></div>
+                </div>
+                <div class="material-row">
+                  <span class="material-swatch swatch-glass" aria-hidden="true"><svg><use href="#icon-glass-jar"></use></svg></span>
+                  <div><strong>Vidrio</strong><p>Quita restos y deposítalo sin bolsa. No incluyas cerámica.</p></div>
+                </div>
+              </div>
+              <p class="local-rule">Las reglas cambian según tu municipio; consulta la guía local.</p>
+            </section>
+
+            <section class="compost-section" aria-labelledby="compost-heading">
+              <h3 id="compost-heading">Organic Waste Matters</h3>
+              <p>Frutas, verduras y posos de café pueden volver a la tierra. Combínalos con hojas secas y evita carne, lácteos y aceites en el compost doméstico.</p>
+            </section>
+
+            <section class="logged-section" aria-labelledby="logged-heading">
+              <div class="logged-heading">
+                <h3 id="logged-heading">Pantry Logged &amp; Tips</h3>
+                <span id="loggedCount">0</span>
+              </div>
+              <div class="logged-materials" id="loggedMaterials">
+                <span class="logged-empty" id="loggedEmpty">Tus materiales aparecerán aquí.</span>
+              </div>
+              <p class="reuse-tip" id="reuseTip">Tip: un frasco limpio puede convertirse en un recipiente para semillas.</p>
+            </section>
+          </aside>
+        </div>
+      </main>
+
+      <footer class="page-footer">
+        <span>Eco Snap <span aria-hidden="true">·</span> Un poco más de uso para lo que ya tienes.</span>
+        <span>Consejos generales; revisa las indicaciones de reciclaje de tu zona.</span>
+      </footer>
+    </div>
+  </body>
+</html>
