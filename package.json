@@ -1,0 +1,12 @@
+{
+  "name": "eco-snap-netlify",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node scripts/check-deploy.mjs",
+    "test": "node --test"
+  }
+}
